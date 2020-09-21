@@ -3,7 +3,7 @@ version: "3.3"
 services:
   producer:
     build:
-      context: pipeline
+      context: local
     command: ["python3", "main_producer.py", "worker"]
     restart: always
     depends_on:
@@ -11,7 +11,7 @@ services:
 
   consumer:
     build:
-      context: pipeline
+      context: local
     command: ["python3", "main_consumer.py", "worker"]
     restart: always
     depends_on:

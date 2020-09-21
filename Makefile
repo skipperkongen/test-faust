@@ -1,7 +1,7 @@
-compose_up:
-	docker-compose up --force-recreate --build --remove-orphans
+local_up:
+	docker-compose up -f docker-compose-local.yaml --force-recreate --build --remove-orphans
 .PHONY: compose_up
 
-compose_down:
-	docker-compose down
+local_down:
+	docker-compose  -f docker-compose-local.yaml down
 .PHONY: compose_down
