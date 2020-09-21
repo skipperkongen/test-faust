@@ -6,7 +6,12 @@ from model import Greeting
 
 #logger = logging.getLogger()
 
-app = faust.App('hello-app', broker='kafka://kafka:9092')
+app = faust.App(
+    'hello-app',
+    broker='kafka://kafka:9092',
+    store='memory://'
+)
+
 topic = app.topic('hello', value_type=Greeting)
 
 @app.agent(topic)

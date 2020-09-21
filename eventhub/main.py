@@ -1,12 +1,18 @@
-#import logging
-
 import faust
+import os
 
 from model import Greeting
 
-#logger = logging.getLogger()
+BROKER_SERVER = os.environ.get('BROKER_SERVER')
+BROKER_USERNAME = os.environ.get('BROKER_USERNAME')
+BROKER_PASSWORD = os.environ.get('BROKER_PASSWORD')
 
-app = faust.App('hello-app', broker='kafka://kafka:9092')
+app = faust.App(
+    'hello-app',
+    broker='kafka://kafka:9092',
+    store='memory://'
+)
+
 topic = app.topic('hello', value_type=Greeting)
 
 @app.agent(topic)
