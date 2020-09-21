@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  producer:
+    build:
+      context: eventhub
+    command: ["python3", "main_producer.py", "worker"]
+    restart: always
+    depends_on:
+      - kafka
+    volumes:
+      - config/eventhub.conf.local:/eventhub.conf
+
+  consumer:
+    build:
+      context: eventhub
+    command: ["python3", "main_consumer.py", "worker"]
+    restart: always
+    depends_on:
+      - kafka
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
