@@ -1,13 +1,17 @@
 # Testing Faust
 
-Start:
+
+
+Run Faust with local Kafka (works):
 
 ```
-make compose_up
+make local_up
+make local_down
 ```
 
-Stop:
+Run Faust with Eventhubs (does NOT work):
 
 ```
-make compose_down
+make eventhub_up
+make eventhub_down
 ```

@@ -7,13 +7,20 @@ BROKER_SERVER = os.environ.get('BROKER_SERVER')
 BROKER_USERNAME = os.environ.get('BROKER_USERNAME')
 BROKER_PASSWORD = os.environ.get('BROKER_PASSWORD')
 
+print('DEBUG:', BROKER_SERVER)
+
 app = faust.App(
     'hello-app',
-    broker='kafka://kafka:9092',
-    store='memory://'
+    broker=BROKER_SERVER,
+    store='memory://',
+    broker_credentials=faust.SASLCredentials(
+        username=BROKER_USERNAME,
+        password=BROKER_PASSWORD,
+        ssl_context=aiokafka.helpers.create_ssl_context()
+    )
 )
 
-topic = app.topic('hello', value_type=Greeting)
+topic = app.topic('test-faust', value_type=Greeting)
 
 @app.agent(topic)
 async def hello(greetings):
